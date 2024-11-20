@@ -45,7 +45,7 @@ def mock_db(monkeypatch, test_db):
     return test_db
 
 
-# Mock PyPI response
+# Mock PyPI response since it's an external service/dependency
 @pytest.fixture
 def mock_pypi_response():
     """Mock PyPI API response data."""
