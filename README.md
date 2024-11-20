@@ -18,4 +18,12 @@ uvicorn main:app --reload
 
 ```
 
-Test the API via the swagger docs
+## Test the API via the swagger docs
+
+```bash
+# In the browser
+http://localhost:8000/docs
+
+# Run the tests with Pytest
+pytest -v 
+```

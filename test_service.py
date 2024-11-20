@@ -301,7 +301,8 @@ async def test_get_metrics_with_hours_filter(client, mock_db):
     assert data["total_installs"] == 1  # Should only count recent install
 
 
-def test_database_connection_error(client):
+@pytest.mark.asyncio
+async def test_database_connection_error(client):
     """Test handling database connection errors."""
     with patch("main.get_db") as mock_get_db:
         mock_get_db.side_effect = sqlite3.Error("Database error")
