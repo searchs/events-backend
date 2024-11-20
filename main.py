@@ -84,6 +84,7 @@ class PackageResponseOut(BaseModel):
         description: Package description text.
         homepage: Package homepage URL.
         license: Package license identifier.
+        releases: List of available package versions.
     """
 
     version: str
@@ -91,6 +92,7 @@ class PackageResponseOut(BaseModel):
     description: str
     homepage: str
     license: str
+    releases: List[str]
 
 
 class InstallMetrics(BaseModel):
@@ -265,6 +267,7 @@ async def fetch_package_metadata(package_name: str) -> dict:
                     "version": data["info"]["version"],
                     "author": data["info"]["author"],
                     "description": data["info"]["summary"],
+                    "info": data["info"],
                     "releases": data["releases"],
                     "homepage": data["info"]["home_page"],
                     "license": data["info"]["license"],
@@ -278,6 +281,7 @@ async def fetch_package_metadata(package_name: str) -> dict:
                         "version": None,
                         "author": None,
                         "description": None,
+                        "info": None,
                         "releases": None,
                         "homepage": None,
                         "license": None,
@@ -526,7 +530,6 @@ async def get_package_stats(package_name: str) -> dict:
             (package_name,),
         )
         daily_installs = dict(cursor.fetchall())
-        logger.info(f"DAILY INSTALLS: {daily_installs}")
 
         cursor.execute(
             """
